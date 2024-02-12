@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Header from "@/components/universal/Header";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
@@ -14,13 +15,14 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body>
+            <body style={{ fontFamily: "Borna" }}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Header />
                     {children}
                 </ThemeProvider>
             </body>

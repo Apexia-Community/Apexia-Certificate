@@ -1,13 +1,16 @@
 "use client"
 
-import Image from "next/image"
+import Link from "next/link"
+import * as React from "react"
 import { useTheme } from "next-themes"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { UserButton, useUser } from "@clerk/nextjs"
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export default function Header() {
+    const { user } = useUser()
     const { setTheme } = useTheme()
 
     return (
@@ -15,9 +18,11 @@ export default function Header() {
             <div className="w-full border-b rounded-lg mb-5">
                 <div className="max-w-[90%] w-full px-3 xl:p-0 my-5 mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-5">
-                        <Label className="text-2xl font-bold">
-                            Apexia Certificate
-                        </Label>
+                        <Link href="./" className="cursor-pointer">
+                            <Label className="text-2xl font-bold pointer-events-none">
+                                Apexia Certificate
+                            </Label>
+                        </Link>
                     </div>
                     <div className="flex items-center gap-5">
                         <DropdownMenu>
@@ -40,6 +45,20 @@ export default function Header() {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+
+                        {user ? (
+                            <UserButton afterSignOutUrl="/" />
+                        ) : (
+                            <Button variant="secondary">
+                                <Link
+                                    href={`/sign-in`}
+                                >
+                                    <Label className="gap-2 flex font-medium text-md items-center cursor-pointer">
+                                        Login Now
+                                    </Label>
+                                </Link>
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>

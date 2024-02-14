@@ -58,20 +58,18 @@ export default function Hero() {
                             </CardDescription>
                         </CardContent>
                         <CardFooter>
-                            <Link href="/certificate/Converge" className="cursor-pointer">
-                                <Button>
-                                    <Label className="flex items-center text-lg gap-2">
+                            <Button className="cursor-pointer">
+                                <Link href="/converge">
+                                    <Label className="flex items-center text-lg gap-2 cursor-pointer">
                                         Get Certificate
                                         <ArrowRight size={20} />
                                     </Label>
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </CardFooter>
                     </Card>
                 </div>
             </div>
-
-
         </>
     )
 }

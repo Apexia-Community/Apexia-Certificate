@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import fetchData from "@/app/api/dataset";
+import { ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Label } from "@/components/ui/label";
 import Header from "@/components/universal/Header";
 
 interface AttendeeData {
@@ -39,6 +42,15 @@ export default function Certificate() {
     return (
         <>
             <Header />
+            <div className="w-full max-w-[90%] mx-auto justify-center">
+                <div className="flex items-center">
+                    <Link href="./" className="cursor-pointer">
+                        <Label className="text-lg cursor-pointer underline">Apexia Certificate</Label>
+                    </Link>
+                    <ChevronRight />
+                    <Label className="text-lg cursor-pointer underline">Converge</Label>
+                </div>
+            </div>
         </>
     );
 }

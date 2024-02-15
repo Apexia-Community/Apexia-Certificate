@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator"
 import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -11,13 +12,13 @@ export default function Hero() {
         <>
             <div className="w-full max-w-[90%] mx-auto justify-center">
                 <div className="mb-10">
-                    <div className="flex items-center justify-center">
-                        <Label className="text-4xl font-bold">
+                    <div className="flex items-center max-sm:justify-center">
+                        <Label className="text-4xl font-bold max-sm:text-xl">
                             Welcome to Apexia Certificate
                         </Label>
                     </div>
-                    <div className="flex items-center justify-center">
-                        <Label className="text-lg">
+                    <div className="flex items-center max-sm:justify-center">
+                        <Label className="text-lg max-sm:text-sm">
                             Your one stop solution for all your certificate needs
                         </Label>
                     </div>
@@ -38,31 +39,32 @@ export default function Hero() {
                                     transition: "transform 0.3s ease-in-out",
                                 }} />
                         </CardHeader>
-                        <CardContent>
-                            <CardTitle>
-                                <Label className="flex items-center text-4xl">
+                        <CardContent className="flex flex-col gap-2">
+                            <CardTitle className="flex flex-col gap-2">
+                                <Label className="flex items-center text-4xl max-sm:text-2xl">
                                     Converge
                                 </Label>
+                                <Separator />
                             </CardTitle>
                             <CardDescription>
-                                <Label className="flex items-center text-lg gap-2">
-                                    <MapPin />
+                                <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                    <MapPin  size={18} className="max-sm:w-4"/>
                                     Aeronautical Auditorium, SVIT
                                 </Label>
                             </CardDescription>
                             <CardDescription>
-                                <Label className="flex items-center text-lg gap-2">
-                                    <CalendarDays />
+                                <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                    <CalendarDays size={18} className="max-sm:w-4"/>
                                     Wednesday, 7th February
                                 </Label>
                             </CardDescription>
                         </CardContent>
                         <CardFooter>
-                            <Button className="cursor-pointer">
+                            <Button className="cursor-pointer" >
                                 <Link href="/converge">
-                                    <Label className="flex items-center text-lg gap-2 cursor-pointer">
+                                    <Label className="flex items-center text-lg max-sm:text-sm gap-2 cursor-pointer">
                                         Get Certificate
-                                        <ArrowRight size={20} />
+                                        <ArrowRight size={18} className="max-sm:w-4" />
                                     </Label>
                                 </Link>
                             </Button>

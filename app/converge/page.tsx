@@ -60,31 +60,33 @@ export default function Certificate() {
                 </div>
                 {/* Certificate Section */}
                 <div className="flex justify-center my-10">
-                    <Card className="flex w-full">
-                        <div className="p-4">
+                    <Card>
+                        <CardHeader>
                             <ConvergeCertificate />
-                        </div>
-                        <div className="flex flex-col gap-2 p-4">
-                            <CardTitle className="flex flex-col gap-2">
-                                <Label className="flex items-center text-4xl">
-                                    Converge
-                                </Label>
-                                <Separator />
-                            </CardTitle>
-                            <CardDescription>
-                                <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                    <MapPin size={18} className="max-sm:w-4" />
-                                    Aeronautical Auditorium, SVIT
-                                </Label>
-                            </CardDescription>
-                            <CardDescription>
-                                <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                    <CalendarDays size={18} className="max-sm:w-4" />
-                                    Wednesday, 7th February
-                                </Label>
-                            </CardDescription>
-                        </div>
-                        <div className="p-4">
+                        </CardHeader>
+                        <CardContent>
+                            <div className="flex flex-col gap-2">
+                                <CardTitle className="flex flex-col gap-2">
+                                    <Label className="flex items-center text-4xl">
+                                        Converge
+                                    </Label>
+                                    <Separator />
+                                </CardTitle>
+                                <CardDescription>
+                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                        <MapPin size={18} className="max-sm:w-4" />
+                                        Aeronautical Auditorium, SVIT
+                                    </Label>
+                                </CardDescription>
+                                <CardDescription>
+                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                        <CalendarDays size={18} className="max-sm:w-4" />
+                                        Wednesday, 7th February
+                                    </Label>
+                                </CardDescription>
+                            </div>
+                        </CardContent>
+                        <CardFooter>
                             <Button className="cursor-pointer">
                                 <Link href="/converge">
                                     <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
@@ -93,7 +95,7 @@ export default function Certificate() {
                                     </Label>
                                 </Link>
                             </Button>
-                        </div>
+                        </CardFooter>
                     </Card>
                 </div>
             </div>

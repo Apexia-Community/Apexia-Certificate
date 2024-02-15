@@ -1,12 +1,30 @@
+"use client";
+
 import React from "react";
+import { useUser } from "@clerk/nextjs"
+import fetchData from "@/app/api/demodataset";
 
 interface CertificateProps {
     className?: string;
     widths?: number;
-
 }
 
 export default function ConvergeCertificate({ className, widths }: CertificateProps) {
+    const { user, isSignedIn } = useUser();
+    const getEmailData = async () => {
+        const email = user?.primaryEmailAddress?.emailAddress!;
+        const data = await fetchData(email);
+        if (data && data.Checked_In !== "") {
+            console.log("Data found:", data);
+        } else {
+            console.log("Data not found for the specified email.");
+        }
+    };
+
+    const userData = getEmailData();
+
+    console.log("User data:", userData);
+
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

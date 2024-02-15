@@ -1,11 +1,14 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import fetchData from "@/app/api/dataset";
 import { ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import Header from "@/components/universal/Header";
+import ConvergeCertificate from "@/app/converge/certificateDesign";
 
 interface AttendeeData {
     Attendee_Name: string;
@@ -49,6 +52,10 @@ export default function Certificate() {
                     </Link>
                     <ChevronRight />
                     <Label className="text-lg cursor-pointer underline">Converge</Label>
+                </div>
+
+                <div className="mt-8">
+                    <ConvergeCertificate />
                 </div>
             </div>
         </>

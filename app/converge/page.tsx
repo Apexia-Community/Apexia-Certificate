@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import fetchData from "@/app/api/dataset";
+import Image from "next/image";
+import { ChevronRight, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import Header from "@/components/universal/Header";
-import { Separator } from "@/components/ui/separator"
-import { ChevronRight, Download } from "lucide-react";
-import ConvergeCertificate from "./certificateDesign";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator"
+import ConvergeCertificate from "./certificateDesign";
 
 
 
@@ -59,10 +59,21 @@ export default function Certificate() {
                     <Label className="text-lg cursor-pointer underline">Converge</Label>
                 </div>
                 {/* Certificate Section */}
-                <div className="flex justify-center my-10">
+                <div className="flex justify-center mt-10">
                     <Card>
                         <CardHeader>
                             <ConvergeCertificate />
+                            {/* <Image
+                                src="/Coverpage.webp"
+                                alt="Converge"
+                                width={842}
+                                height={595}
+                                className="rounded-md"
+                                style={{
+                                    aspectRatio: "16/9",
+                                    objectFit: "cover",
+                                    transition: "transform 0.3s ease-in-out",
+                                }} /> */}
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col gap-2">

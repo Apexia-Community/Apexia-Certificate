@@ -15,11 +15,11 @@ export default function Header() {
 
     return (
         <>
-            <div className="w-full border-b rounded-lg mb-5">
+            <div className="w-full border-b rounded-lg mb-5 backdrop-blur-xl top-0 sticky p-1">
                 <div className="max-w-[90%] w-full px-3 xl:p-0 my-5 mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-5">
                         <Link href="./" className="cursor-pointer">
-                            <Label className="text-2xl font-bold pointer-events-none">
+                            <Label className="text-2xl font-bold pointer-events-none max-sm:text-sm">
                                 Apexia Certificate
                             </Label>
                         </Link>

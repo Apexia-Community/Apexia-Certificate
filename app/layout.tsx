@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
+import Footer from "@/components/universal/Footer";
 
 export const metadata: Metadata = {
     title: "Apexia Certificate",
@@ -24,6 +25,7 @@ export default function RootLayout({
                         disableTransitionOnChange
                     >
                         {children}
+                        <Footer />
                     </ThemeProvider>
                 </ClerkProvider>
             </body>

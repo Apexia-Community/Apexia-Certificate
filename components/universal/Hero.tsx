@@ -11,7 +11,7 @@ export default function Hero() {
     return (
         <>
             <div className="w-full max-w-[90%] mx-auto justify-center">
-                <div className="mb-10">
+                <div className="mb-10 max-sm:text-center">
                     <div className="flex items-center max-sm:justify-center">
                         <Label className="text-4xl font-bold max-sm:text-xl">
                             Welcome to Apexia Certificate

@@ -60,9 +60,11 @@ export default function Certificate() {
                 </div>
                 {/* Certificate Section */}
                 <div className="flex justify-center my-10">
-                    <Card className="w-full flex">
-                        <ConvergeCertificate className="flex w-2/3 p-4" />
-                        <div className="flex flex-col gap-2 p-4 w-1/3">
+                    <Card className="flex w-full">
+                        <div className="p-4">
+                            <ConvergeCertificate />
+                        </div>
+                        <div className="flex flex-col gap-2 p-4">
                             <CardTitle className="flex flex-col gap-2">
                                 <Label className="flex items-center text-4xl">
                                     Converge
@@ -81,8 +83,8 @@ export default function Certificate() {
                                     Wednesday, 7th February
                                 </Label>
                             </CardDescription>
-                            {/* </div>
-                            <div className="p-4"> */}
+                        </div>
+                        <div className="p-4">
                             <Button className="cursor-pointer">
                                 <Link href="/converge">
                                     <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">

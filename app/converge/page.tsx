@@ -1,49 +1,14 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
-import fetchData from "@/app/api/dataset";
-import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/universal/Header";
+import { MapPin, CalendarDays } from "lucide-react";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import ConvergeCertificate from "./certificateDesign";
-import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface AttendeeData {
-    Attendee_Name: string;
-    Email_Address: string;
-    Checked_In: string;
-}
-
-interface LumaData {
-    allData: AttendeeData[];
-}
-
 export default function Certificate() {
-    const [lumaData, setLumaData] = useState<LumaData | null>(null);
-
-    useEffect(() => {
-        const fetchDataOnClientSide = async () => {
-            try {
-                const newData = await fetchData();
-                if (newData) {
-                    setLumaData({ allData: newData });
-                } else {
-                    console.error('Data fetched is null');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchDataOnClientSide();
-    }, []);
-
-    console.log(lumaData);
 
     return (
         <>

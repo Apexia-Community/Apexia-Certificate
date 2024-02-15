@@ -59,54 +59,45 @@ export default function Certificate() {
                     <Label className="text-lg cursor-pointer underline">Converge</Label>
                 </div>
                 {/* Certificate Section */}
-                <div className="flex justify-center mt-10">
-                    <Card>
+                <div className="flex my-5 max-sm:justify-center">
+                    <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
-                            <ConvergeCertificate />
-                            {/* <Image
-                                src="/Coverpage.webp"
-                                alt="Converge"
-                                width={842}
-                                height={595}
-                                className="rounded-md"
-                                style={{
-                                    aspectRatio: "16/9",
-                                    objectFit: "cover",
-                                    transition: "transform 0.3s ease-in-out",
-                                }} /> */}
+                            <ConvergeCertificate className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" />
                         </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-col gap-2">
-                                <CardTitle className="flex flex-col gap-2">
-                                    <Label className="flex items-center text-4xl">
-                                        Converge
-                                    </Label>
-                                    <Separator />
-                                </CardTitle>
-                                <CardDescription>
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                        <MapPin size={18} className="max-sm:w-4" />
-                                        Aeronautical Auditorium, SVIT
-                                    </Label>
-                                </CardDescription>
-                                <CardDescription>
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                        <CalendarDays size={18} className="max-sm:w-4" />
-                                        Wednesday, 7th February
-                                    </Label>
-                                </CardDescription>
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button className="cursor-pointer">
-                                <Link href="/converge">
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
-                                        Download Certificate
-                                        <Download size={18} className="max-sm:w-4" />
-                                    </Label>
-                                </Link>
-                            </Button>
-                        </CardFooter>
+                        <div className="p-4 flex flex-col w-full max-sm:p-0">
+                            <CardContent>
+                                <div className="flex flex-col gap-2">
+                                    <CardTitle className="flex flex-col gap-2">
+                                        <Label className="flex items-center text-4xl max-sm:text-2xl">
+                                            Converge
+                                        </Label>
+                                        <Separator />
+                                    </CardTitle>
+                                    <CardDescription>
+                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                            <MapPin size={18} className="max-sm:w-4" />
+                                            Aeronautical Auditorium, SVIT
+                                        </Label>
+                                    </CardDescription>
+                                    <CardDescription>
+                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                            <CalendarDays size={18} className="max-sm:w-4" />
+                                            Wednesday, 7th February
+                                        </Label>
+                                    </CardDescription>
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <Button className="cursor-pointer">
+                                    <Link href="/converge">
+                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
+                                            Download Certificate
+                                            <Download size={18} className="max-sm:w-4" />
+                                        </Label>
+                                    </Link>
+                                </Button>
+                            </CardFooter>
+                        </div>
                     </Card>
                 </div>
             </div>

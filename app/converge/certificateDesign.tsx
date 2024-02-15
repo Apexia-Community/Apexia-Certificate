@@ -9,6 +9,7 @@ export default function ConvergeCertificate() {
             height="595"
             fill="none"
             viewBox="0 0 842 595"
+            className="rounded-md border shadow-md"
         >
             <g clipPath="url(#clip0_11_5486)">
                 <path fill="#010101" d="M0 0H842V595H0z"></path>

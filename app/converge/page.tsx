@@ -1,19 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import fetchData from "@/app/api/dataset";
 import Image from "next/image";
-import { ChevronRight, Download } from "lucide-react";
+import fetchData from "@/app/api/dataset";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
-import Header from "@/components/universal/Header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
-import { Separator } from "@/components/ui/separator"
+import Header from "@/components/universal/Header";
+import { ChevronRight, Download } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import ConvergeCertificate from "./certificateDesign";
-
-
+import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AttendeeData {
     Attendee_Name: string;
@@ -26,26 +24,26 @@ interface LumaData {
 }
 
 export default function Certificate() {
-    // const [lumaData, setLumaData] = useState<LumaData | null>(null);
+    const [lumaData, setLumaData] = useState<LumaData | null>(null);
 
-    // useEffect(() => {
-    //     const fetchDataOnClientSide = async () => {
-    //         try {
-    //             const newData = await fetchData();
-    //             if (newData) {
-    //                 setLumaData({ allData: newData });
-    //             } else {
-    //                 console.error('Data fetched is null');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchDataOnClientSide = async () => {
+            try {
+                const newData = await fetchData();
+                if (newData) {
+                    setLumaData({ allData: newData });
+                } else {
+                    console.error('Data fetched is null');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    //     fetchDataOnClientSide();
-    // }, []);
+        fetchDataOnClientSide();
+    }, []);
 
-    // console.log(lumaData);
+    console.log(lumaData);
 
     return (
         <>

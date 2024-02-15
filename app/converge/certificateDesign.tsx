@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function ConvergeCertificate() {
+interface CertificateProps {
+    className?: string;
+}
+
+export default function ConvergeCertificate({ className }: CertificateProps) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +13,7 @@ export default function ConvergeCertificate() {
             height="595"
             fill="none"
             viewBox="0 0 842 595"
-            className="rounded-md border shadow-md"
+            className={`pointer-events-none ${className}`}
         >
             <g clipPath="url(#clip0_11_5486)">
                 <path fill="#010101" d="M0 0H842V595H0z"></path>

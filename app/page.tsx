@@ -5,7 +5,6 @@ import Footer from "@/components/universal/Footer";
 export default function Home() {
     return (
         <>
-            <Header />
             <Hero />
         </>
     );

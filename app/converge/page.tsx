@@ -25,7 +25,11 @@ export default function Certificate() {
             const data = await fetchData(email);
             if (data && data.Checked_In !== "") {
                 console.log("Data found:", data.Attendee_Name);
-                setAttendeeName(data.Attendee_Name);
+                generateSVGText(data.Attendee_Name).then(svgResult => {
+                    setAttendeeNameSVG(svgResult);
+                }).catch(error => {
+                    console.error(error);
+                });
             } else {
                 console.log("Data not found for the specified email.");
                 setAttendeeName(null);
@@ -34,15 +38,6 @@ export default function Certificate() {
 
         getEmailData();
     }, [user]);
-
-    useEffect(() => {
-        if (attendeeName) {
-            const attendeeNameSVG = generateSVGText(attendeeName);
-            setAttendeeNameSVG(attendeeNameSVG);
-        }
-    }, [attendeeName]);
-
-    console.log("User:", attendeeNameSVG);
 
     return (
         <>
@@ -58,7 +53,7 @@ export default function Certificate() {
                 <div className="flex my-5 max-sm:justify-center">
                     <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
-                            <ConvergeCertificate className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" />
+                            <ConvergeCertificate svgPath={attendeeNameSVG} className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" />
                         </CardHeader>
                         <div className="p-4 flex flex-col w-full max-sm:p-0">
                             <CardContent>
@@ -79,12 +74,6 @@ export default function Certificate() {
                                         <Label className="flex items-center max-sm:text-sm text-lg gap-2">
                                             <CalendarDays size={18} className="max-sm:w-4" />
                                             Wednesday, 7th February
-                                        </Label>
-                                    </CardDescription>
-                                    <CardDescription>
-                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                            {/* <CalendarDays size={18} className="max-sm:w-4" /> */}
-                                            {attendeeName}
                                         </Label>
                                     </CardDescription>
                                 </div>

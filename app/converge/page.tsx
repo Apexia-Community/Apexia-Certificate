@@ -79,20 +79,17 @@ export default function Certificate() {
                                 </div>
                             </CardContent>
                             <CardFooter>
-                                <Link href="/converge">
-                                    <Button className="cursor-pointer">
-                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
-                                            Download Certificate
-                                            <Download size={18} className="max-sm:w-4" />
-                                        </Label>
-                                    </Button>
-                                </Link>
+                                <Button className="cursor-pointer">
+                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
+                                        Download Certificate
+                                        <Download size={18} className="max-sm:w-4" />
+                                    </Label>
+                                </Button>
                             </CardFooter>
                         </div>
                     </Card>
                 </div>
             </div>
-
         </>
     );
 }

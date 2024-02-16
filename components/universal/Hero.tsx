@@ -27,7 +27,7 @@ export default function Hero() {
                     <Separator />
                     <div className="flex gap-2 max-sm:gap-1 items-center">
                         <h2 className="text-lg max-sm:text-sm">Find all the events</h2>
-                        <ChevronRight size={18} className="max-sm:w-4 -mt-px"/>
+                        <ChevronRight size={18} className="max-sm:w-4 -mt-px" />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
                         <Card>
@@ -65,14 +65,14 @@ export default function Hero() {
                                 </CardDescription>
                             </CardContent>
                             <CardFooter>
-                                <Button className="cursor-pointer" >
-                                    <Link href="/converge">
+                                <Link href="/converge">
+                                    <Button className="cursor-pointer" >
                                         <Label className="flex items-center text-lg max-sm:text-sm gap-2 cursor-pointer">
                                             Get Certificate
                                             <ArrowRight size={18} className="max-sm:w-4" />
                                         </Label>
-                                    </Link>
-                                </Button>
+                                    </Button>
+                                </Link>
                             </CardFooter>
                         </Card>
                     </div>

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, CalendarDays } from "lucide-react";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+// import { generateSVGText } from "@/utils/text_to_svgpath";
 import ConvergeCertificate from "@/app/converge/certificateDesign";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -19,14 +20,12 @@ export default function Certificate() {
         const data = await fetchData(email);
         if (data && data.Checked_In !== "") {
             console.log("Data found:", data.Attendee_Name);
+            // console.log(generateSVGText(data.Attendee_Name));
         } else {
             console.log("Data not found for the specified email.");
         }
+        return data;
     };
-
-    const userData = getEmailData();
-
-    console.log("User data:", userData);
 
     return (
         <>
@@ -43,7 +42,6 @@ export default function Certificate() {
                     <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
                             <ConvergeCertificate className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" />
-
                         </CardHeader>
                         <div className="p-4 flex flex-col w-full max-sm:p-0">
                             <CardContent>

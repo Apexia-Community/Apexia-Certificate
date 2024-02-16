@@ -4,28 +4,45 @@ import React from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs"
 import fetchData from "@/app/api/dataset";
+import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { MapPin, CalendarDays } from "lucide-react";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-// import { generateSVGText } from "@/utils/text_to_svgpath";
+import generateSVGText from "@/utils/text_to_svgpath";
 import ConvergeCertificate from "@/app/converge/certificateDesign";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Certificate() {
     const { user, isSignedIn } = useUser();
-    const getEmailData = async () => {
-        const email = user?.primaryEmailAddress?.emailAddress!;
-        const data = await fetchData(email);
-        if (data && data.Checked_In !== "") {
-            console.log("Data found:", data.Attendee_Name);
-            // console.log(generateSVGText(data.Attendee_Name));
-        } else {
-            console.log("Data not found for the specified email.");
+    const [attendeeName, setAttendeeName] = useState<string | null>(null);
+    const [attendeeNameSVG, setAttendeeNameSVG] = useState<string | null>(null);
+
+    useEffect(() => {
+        const getEmailData = async () => {
+            const email = user?.primaryEmailAddress?.emailAddress!;
+            const data = await fetchData(email);
+            if (data && data.Checked_In !== "") {
+                console.log("Data found:", data.Attendee_Name);
+                setAttendeeName(data.Attendee_Name);
+            } else {
+                console.log("Data not found for the specified email.");
+                setAttendeeName(null);
+            }
+        };
+
+        getEmailData();
+    }, [user]);
+
+    useEffect(() => {
+        if (attendeeName) {
+            const attendeeNameSVG = generateSVGText(attendeeName);
+            setAttendeeNameSVG(attendeeNameSVG);
         }
-        return data;
-    };
+    }, [attendeeName]);
+
+    console.log("User:", attendeeNameSVG);
 
     return (
         <>
@@ -62,6 +79,12 @@ export default function Certificate() {
                                         <Label className="flex items-center max-sm:text-sm text-lg gap-2">
                                             <CalendarDays size={18} className="max-sm:w-4" />
                                             Wednesday, 7th February
+                                        </Label>
+                                    </CardDescription>
+                                    <CardDescription>
+                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2">
+                                            {/* <CalendarDays size={18} className="max-sm:w-4" /> */}
+                                            {attendeeName}
                                         </Label>
                                     </CardDescription>
                                 </div>

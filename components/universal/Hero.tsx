@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"
-import { ArrowRight, MapPin, CalendarDays, ChevronRight  } from "lucide-react";
+import { ArrowRight, MapPin, CalendarDays, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 
@@ -25,7 +25,10 @@ export default function Hero() {
                 </div>
                 <div className="flex flex-col gap-5">
                     <Separator />
-                    <div className="flex gap-2 items-center"><h2 className="text-lg">Find all the events</h2><ChevronRight size={18}/></div>
+                    <div className="flex gap-2 max-sm:gap-1 items-center">
+                        <h2 className="text-lg max-sm:text-sm">Find all the events</h2>
+                        <ChevronRight size={18} className="max-sm:w-4 -mt-px"/>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
                         <Card>
                             <CardHeader>

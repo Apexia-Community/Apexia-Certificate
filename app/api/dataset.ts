@@ -6,11 +6,11 @@ interface AttendeeData {
     Checked_In: string;
 }
 
-const fetchData = async (): Promise<AttendeeData[] | null> => {
+const fetchData = async (targetEmail: string): Promise<AttendeeData | null> => {
     try {
         const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_ID}/exec`);
-        const filteredData: AttendeeData[] = response.data.data.filter((entry: AttendeeData) => entry.Checked_In !== "");
-        return filteredData;
+        const filteredData: AttendeeData | undefined = response.data.data.find((entry: AttendeeData) => entry.Email_Address === targetEmail);
+        return filteredData || null;
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;

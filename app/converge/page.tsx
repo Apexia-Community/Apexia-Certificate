@@ -4,13 +4,13 @@ import React from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs"
 import fetchData from "@/app/api/dataset";
-// import { useState, useRef } from 'react';
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/universal/Header";
 import { MapPin, CalendarDays } from "lucide-react";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+// import { generateSVGText } from "@/utils/text_to_svgpath";
+import ConvergeCertificate from "@/app/converge/certificateDesign";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Certificate() {
@@ -20,14 +20,12 @@ export default function Certificate() {
         const data = await fetchData(email);
         if (data && data.Checked_In !== "") {
             console.log("Data found:", data.Attendee_Name);
+            // console.log(generateSVGText(data.Attendee_Name));
         } else {
             console.log("Data not found for the specified email.");
         }
+        return data;
     };
-
-    const userData = getEmailData();
-
-    console.log("User data:", userData);
 
     return (
         <>
@@ -43,8 +41,7 @@ export default function Certificate() {
                 <div className="flex my-5 max-sm:justify-center">
                     <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
-                            {/* <ConvergeCertificate className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" /> */}
-
+                            <ConvergeCertificate className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" />
                         </CardHeader>
                         <div className="p-4 flex flex-col w-full max-sm:p-0">
                             <CardContent>

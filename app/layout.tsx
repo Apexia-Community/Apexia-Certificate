@@ -1,10 +1,11 @@
 import "./globals.css";
+import Head from "next/head";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/universal/Footer";
-import Head from "next/head";
 import Header from "@/components/universal/Header";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
     title: "Apexia Certificate",
@@ -29,6 +30,7 @@ export default function RootLayout({
                         <Header />
                         {children}
                         <Footer />
+                        <Toaster />
                     </ThemeProvider>
                 </ClerkProvider>
             </body>

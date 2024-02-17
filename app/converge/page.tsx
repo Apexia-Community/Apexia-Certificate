@@ -1,7 +1,9 @@
 "use client";
 
+import 'svg2pdf.js';
 import React from "react";
 import Link from "next/link";
+import { jsPDF } from 'jspdf';
 import { useRef } from "react";
 import { useUser } from "@clerk/nextjs"
 import fetchData from "@/app/api/dataset";
@@ -9,35 +11,37 @@ import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { MapPin, CalendarDays } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import generateSVGText from "@/utils/text_to_svgpath";
-// import ConvergeCertificate from "@/app/converge/certificateDesign";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { jsPDF } from 'jspdf';
-import 'svg2pdf.js';
 
 export default function Certificate() {
+    const { toast } = useToast()
     const { user, isSignedIn } = useUser();
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const [attendeeName, setAttendeeName] = useState<string | null>(null);
     const [attendeeNameSVG, setAttendeeNameSVG] = useState<string | null>(null);
 
+    // if (!isSignedIn) {
+    //     toast({
+    //         variant: "destructive",
+    //         title: "You are not signed in",
+    //         description: "Please sign in to view your certificate.",
+    //     })
+    // }
+
     const downloadSvgAsPdf = (svgElementId: string, fileName: string, quality = 1.2) => {
-        // Fetch the SVG element by its id
         const element = document.getElementById(svgElementId);
 
-        // Ensure the SVG element exists
         if (!element) {
             console.error(`SVG element with id '${svgElementId}' not found.`);
             return;
         }
 
-        // Get the width and height of the SVG
-        const svgWidth = 5052;
-        const svgHeight = 3570;
+        const svgWidth = 2562;
+        const svgHeight = 1785;
 
-        // Create a canvas element to render SVG
         const canvas = document.createElement('canvas');
         canvas.width = svgWidth * window.devicePixelRatio;
         canvas.height = svgHeight * window.devicePixelRatio;
@@ -50,34 +54,19 @@ export default function Certificate() {
             console.error('Canvas context could not be created.');
             return;
         }
-
-        // Serialize the SVG element to XML string
         const svgData = new XMLSerializer().serializeToString(element);
-
-        // Create an Image object
         const img = new Image();
         img.onload = function () {
-            // Draw SVG on the canvas
             ctx.drawImage(img, 0, 0, svgWidth * window.devicePixelRatio, svgHeight * window.devicePixelRatio);
-
-            // Convert canvas to data URL
             const dataUrl = canvas.toDataURL('image/jpeg', quality);
-
-            // Create jsPDF instance with SVG dimensions
             const doc = new jsPDF({
                 orientation: svgWidth > svgHeight ? 'landscape' : 'portrait',
                 unit: 'pt',
                 format: [svgWidth, svgHeight]
             });
-
-            // Embed image in PDF
             doc.addImage(dataUrl, 'JPEG', 0, 0, svgWidth, svgHeight, undefined, 'FAST');
-
-            // Save the PDF
             doc.save(fileName);
         };
-
-        // Set Image source to SVG data
         img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
     };
 
@@ -92,20 +81,42 @@ export default function Certificate() {
             const email = user?.primaryEmailAddress?.emailAddress!;
             const data = await fetchData(email);
             if (data && data.Checked_In !== "") {
-                console.log("Data found:", data.Attendee_Name);
+                // console.log("Data found:", data.Attendee_Name);
+                toast({
+                    title: "Data found",
+                    description: `Data found for the ${data.Attendee_Name}`,
+                });
                 generateSVGText(data.Attendee_Name).then(svgResult => {
                     setAttendeeNameSVG(svgResult);
                 }).catch(error => {
                     console.error(error);
                 });
+                toast({
+                    title: "Certificate generated",
+                    description: `Certificate generated for the ${data.Attendee_Name}`,
+                });
             } else {
-                console.log("Data not found for the specified email.");
-                setAttendeeName(null);
+                // console.log("Data not found for the specified email.");
+                if (!isSignedIn) {
+                    toast({
+                        variant: "destructive",
+                        title: "Data not found",
+                        description: `Data not found for the specified email.`,
+                    });
+                }
+                else {
+                    toast({
+                        variant: "destructive",
+                        title: "Data not found",
+                        description: `Data not found for the specified email.`,
+                    });
+                }
+                setAttendeeNameSVG(null);
             }
         };
 
         getEmailData();
-    }, [user]);
+    }, [isSignedIn, toast, user]);
 
     return (
         <>
@@ -121,7 +132,6 @@ export default function Certificate() {
                 <div className="flex my-5 max-sm:justify-center">
                     <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
-                            {/* <ConvergeCertificate svgPath={attendeeNameSVG} className="max-sm:w-full t max-sm:h-fit rounded-md shadow-sm shadow-black" /> */}
                             <svg
                                 ref={svgRef}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -710,7 +720,6 @@ export default function Certificate() {
                                     ></image>
                                 </defs>
                             </svg>
-
                         </CardHeader>
                         <div className="p-4 flex flex-col w-full max-sm:p-0">
                             <CardContent>

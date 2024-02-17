@@ -34,8 +34,8 @@ export default function Certificate() {
         }
 
         // Get the width and height of the SVG
-        const svgWidth = 2526;
-        const svgHeight = 1785;
+        const svgWidth = 5052;
+        const svgHeight = 3570;
 
         // Create a canvas element to render SVG
         const canvas = document.createElement('canvas');

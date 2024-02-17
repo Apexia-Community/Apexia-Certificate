@@ -118,6 +118,8 @@ export default function Certificate() {
         getEmailData();
     }, [isSignedIn, toast, user]);
 
+    console.log(attendeeNameSVG);
+
     return (
         <>
             <div className="w-full max-w-[90%] mx-auto justify-center min-h-screen">
@@ -745,12 +747,14 @@ export default function Certificate() {
                                 </div>
                             </CardContent>
                             <CardFooter>
-                                <Button className="cursor-pointer" onClick={handleSvgPdfDownload}>
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
-                                        Download Certificate
-                                        <Download size={18} className="max-sm:w-4" />
-                                    </Label>
-                                </Button>
+                                {attendeeNameSVG && (
+                                    <Button className="cursor-pointer" onClick={handleSvgPdfDownload}>
+                                        <Label className="flex items-center max-sm:text-sm text-lg gap-2 cursor-pointer">
+                                            Download Certificate
+                                            <Download size={18} className="max-sm:w-4" />
+                                        </Label>
+                                    </Button>
+                                )}
                             </CardFooter>
                         </div>
                     </Card>

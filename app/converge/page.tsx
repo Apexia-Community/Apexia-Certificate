@@ -100,8 +100,8 @@ export default function Certificate() {
                 if (!isSignedIn) {
                     toast({
                         variant: "destructive",
-                        title: "Data not found",
-                        description: `Data not found for the specified email.`,
+                        title: "You are not signed in",
+                        description: `Please sign in to view your certificate.`,
                     });
                 }
                 else {

@@ -118,7 +118,7 @@ export default function Certificate() {
         getEmailData();
     }, [isSignedIn, toast, user]);
 
-    console.log(attendeeNameSVG);
+    // console.log(attendeeNameSVG);
 
     return (
         <>

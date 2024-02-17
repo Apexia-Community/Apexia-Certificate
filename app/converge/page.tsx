@@ -39,8 +39,8 @@ export default function Certificate() {
             return;
         }
 
-        const svgWidth = 5052;
-        const svgHeight = 3570;
+        const svgWidth = 2562;
+        const svgHeight = 1785;
 
         const canvas = document.createElement('canvas');
         canvas.width = svgWidth * window.devicePixelRatio;
@@ -93,7 +93,7 @@ export default function Certificate() {
                 });
                 toast({
                     title: "Certificate generated",
-                    description: `Certificate generated ${data.Attendee_Name}`,
+                    description: `Certificate generated for the ${data.Attendee_Name}`,
                 });
             } else {
                 // console.log("Data not found for the specified email.");

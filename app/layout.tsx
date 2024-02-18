@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/universal/Footer";
 import Header from "@/components/universal/Header";
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function RootLayout({
                     >
                         <Header />
                         {children}
+                        <Analytics />
                         <Footer />
                         <Toaster />
                     </ThemeProvider>

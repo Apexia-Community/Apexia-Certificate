@@ -31,7 +31,7 @@ export default function Certificate() {
     //     })
     // }
 
-    const downloadSvgAsPdf = (svgElementId: string, fileName: string, metadata = {}, quality = 1.2) => {
+    const downloadSvgAsPdf = (svgElementId: string, fileName: string, metadata = {}, quality = 1.5) => {
         const element = document.getElementById(svgElementId);
 
         if (!element) {

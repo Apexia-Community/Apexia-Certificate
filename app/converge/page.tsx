@@ -39,8 +39,8 @@ export default function Certificate() {
             return;
         }
 
-        const svgWidth = 2562;
-        const svgHeight = 1785;
+        const svgWidth = 1920;
+        const svgHeight = 1337.7;
 
         const canvas = document.createElement('canvas');
         canvas.width = svgWidth * window.devicePixelRatio;

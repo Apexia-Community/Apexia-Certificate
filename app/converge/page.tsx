@@ -23,14 +23,6 @@ export default function Certificate() {
     const svgRef = useRef<SVGSVGElement | null>(null);
     const [attendeeNameSVG, setAttendeeNameSVG] = useState<string | null>(null);
 
-    // if (!isSignedIn) {
-    //     toast({
-    //         variant: "destructive",
-    //         title: "You are not signed in",
-    //         description: "Please sign in to view your certificate.",
-    //     })
-    // }
-
     const downloadSvgAsPdf = (svgElementId: string, fileName: string, metadata = {}, quality = 1.5) => {
         const element = document.getElementById(svgElementId);
 

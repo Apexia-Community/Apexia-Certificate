@@ -79,8 +79,9 @@ export default function Certificate() {
         const getEmailData = async () => {
             const email = user?.primaryEmailAddress?.emailAddress!;
             const data = await fetchData(email);
-            if (data == null || data == undefined) {
+            if ((data == null || data == undefined) && isSignedIn == true ) {
                 toast({
+                    variant: "destructive",
                     title: "Server is in Maintanence",
                     description: "Please try again later.",
                 });

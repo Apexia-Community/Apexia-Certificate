@@ -79,7 +79,13 @@ export default function Certificate() {
         const getEmailData = async () => {
             const email = user?.primaryEmailAddress?.emailAddress!;
             const data = await fetchData(email);
-            if (data && data.Checked_In !== "") {
+            if (data == null || data == undefined) {
+                toast({
+                    title: "Server is in Maintanence",
+                    description: "Please try again later.",
+                });
+            }
+            else if (data && data.Checked_In !== "") {
                 // console.log("Data found:", data.Attendee_Name);
                 toast({
                     title: "Data found",

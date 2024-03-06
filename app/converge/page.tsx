@@ -5,9 +5,9 @@ import React from "react";
 import Link from "next/link";
 import { jsPDF } from 'jspdf';
 import { useRef } from "react";
-import { useUser } from "@clerk/nextjs"
-import fetchData from "@/app/api/dataset";
+import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
+import axios, { AxiosResponse } from 'axios';
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { MapPin, CalendarDays } from "lucide-react";
@@ -17,12 +17,31 @@ import { Separator } from "@/components/ui/separator";
 import generateSVGText from "@/utils/text_to_svgpath";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
+interface AttendeeData {
+    Attendee_Name: string;
+    Email_Address: string;
+    Checked_In: string;
+}
+
 export default function Certificate() {
     const { toast } = useToast()
     const { user, isSignedIn } = useUser();
     const svgRef = useRef<SVGSVGElement | null>(null);
+    const [appscriptFetchError, setAppscriptFetchError] = useState<boolean>(false);
     const [attendeeName, setAttendeeName] = useState<string | null>(null);
     const [attendeeNameSVG, setAttendeeNameSVG] = useState<string | null>(null);
+
+    const fetchData = async (targetEmail: string): Promise<AttendeeData | null> => {
+        try {
+            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_ID}/exec`);
+            const filteredData: AttendeeData | undefined = response.data.data.find((entry: AttendeeData) => entry.Email_Address === targetEmail);
+            return filteredData || null;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setAppscriptFetchError(true);
+            return null;
+        }
+    };
 
     const downloadSvgAsPdf = (svgElementId: string, fileName: string, metadata = {}, quality = 1.5) => {
         const element = document.getElementById(svgElementId);
@@ -80,15 +99,7 @@ export default function Certificate() {
         const getEmailData = async () => {
             const email = user?.primaryEmailAddress?.emailAddress!;
             const data = await fetchData(email);
-            if ((data == null || data == undefined) && isSignedIn == true ) {
-                toast({
-                    variant: "destructive",
-                    title: "Server is in Maintanence",
-                    description: "Please try again later.",
-                });
-                return;
-            }
-            else if (data && data.Checked_In !== "") {
+            if (data && data.Checked_In !== "") {
                 // console.log("Data found:", data.Attendee_Name);
                 setAttendeeName(data.Attendee_Name);
                 toast({
@@ -105,7 +116,6 @@ export default function Certificate() {
                     description: `Certificate generated for ${data.Attendee_Name}`,
                 });
             } else {
-                // console.log("Data not found for the specified email.");
                 if (!isSignedIn) {
                     toast({
                         variant: "destructive",
@@ -114,17 +124,27 @@ export default function Certificate() {
                     });
                 }
                 else {
-                    toast({
-                        variant: "destructive",
-                        title: "Data not found",
-                        description: `Data not found for the specified email.`,
-                    });
+                    if (appscriptFetchError === false) {
+                        toast({
+                            variant: "destructive",
+                            title: "Data not found",
+                            description: "Data not found for the specified email.",
+                        });
+                    }
+                    else {
+                        toast({
+                            variant: "destructive",
+                            title: "Server is in Maintanence",
+                            description: "Please try again later.",
+                        });
+                    }
                 }
                 setAttendeeNameSVG(null);
             }
         };
 
         getEmailData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSignedIn, toast, user]);
 
     // console.log(attendeeNameSVG);

@@ -1,6 +1,6 @@
 import "./globals.css";
-import Head from "next/head";
 import type { Metadata } from "next";
+import NextTopLoader from 'nextjs-toploader';
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/universal/Footer";
@@ -28,6 +28,7 @@ export default function RootLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
+                        <NextTopLoader color="#FF4600" showSpinner={false}/>
                         <Header />
                         {children}
                         <Analytics />

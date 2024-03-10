@@ -3767,6 +3767,11 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
+typescript-slugify@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/typescript-slugify/-/typescript-slugify-1.0.1.tgz#c2444e1a11c6100860010af1d2e965d5b36d76bf"
+  integrity sha512-P8sCnDGd0rgJw6EzCZF3Q+JMsMrHIMI/x5WKytgG+bOfbSOFkgOBQCqZQbE3rMZO1aGC4rNpkXUB1sVX23QpSg==
+
 typescript@^5:
   version "5.3.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz"

@@ -28,7 +28,7 @@ export default function RootLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <NextTopLoader color="#FF4600" showSpinner={false}/>
+                        <NextTopLoader color="#FF4600" showSpinner={false} />
                         <Header />
                         {children}
                         <Analytics />

@@ -153,7 +153,7 @@ export default function Certificate() {
         <>
             <div className="w-full max-w-[90%] mx-auto justify-center min-h-screen">
                 <div className="flex items-center">
-                    <Link href="./" className="cursor-pointer">
+                    <Link href="../" className="cursor-pointer">
                         <Label className="text-lg cursor-pointer underline">Apexia Certificate</Label>
                     </Link>
                     <ChevronRight />

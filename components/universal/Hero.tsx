@@ -1,13 +1,29 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator"
-import { ArrowRight, MapPin, CalendarDays, ChevronRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
 
+import { useUser } from "@clerk/nextjs";
+import { ChevronRight } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import EventCatd from "@/components/common/EventCard";
+
+const EventData = [
+    {
+        title: "Converge",
+        location: "Aeronautical Auditorium, SVIT",
+        date: "Wednesday, 7th February",
+        image: "/Coverpage.webp",
+    },
+    {
+        title: "Webverse Part One",
+        location: "IT Seminar Hall, SVIT",
+        date: "Tueesday, 12th March",
+        image: "/WebversePartOne.webp",
+    }
+];
 
 export default function Hero() {
+    const { isSignedIn } = useUser();
+
     return (
         <>
             <div className="w-full max-w-[90%] mx-auto gap-5 min-h-screen flex flex-col">
@@ -30,51 +46,17 @@ export default function Hero() {
                         <ChevronRight size={18} className="max-sm:w-4 -mt-px" />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-                        <Card>
-                            <CardHeader>
-                                <Image
-                                    src="/Coverpage.webp"
-                                    alt="Converge"
-                                    width={1200}
-                                    height={800}
-                                    className="rounded-lg"
-                                    style={{
-                                        aspectRatio: "16/9",
-                                        objectFit: "cover",
-                                        transition: "transform 0.3s ease-in-out",
-                                    }} />
-                            </CardHeader>
-                            <CardContent className="flex flex-col gap-2">
-                                <CardTitle className="flex flex-col gap-2">
-                                    <Label className="flex items-center text-4xl max-sm:text-2xl">
-                                        Converge
-                                    </Label>
-                                    <Separator />
-                                </CardTitle>
-                                <CardDescription>
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                        <MapPin size={18} className="max-sm:w-4" />
-                                        Aeronautical Auditorium, SVIT
-                                    </Label>
-                                </CardDescription>
-                                <CardDescription>
-                                    <Label className="flex items-center max-sm:text-sm text-lg gap-2">
-                                        <CalendarDays size={18} className="max-sm:w-4" />
-                                        Wednesday, 7th February
-                                    </Label>
-                                </CardDescription>
-                            </CardContent>
-                            <CardFooter>
-                                <Link href="/converge">
-                                    <Button className="cursor-pointer" >
-                                        <Label className="flex items-center text-lg max-sm:text-sm gap-2 cursor-pointer">
-                                            Get Certificate
-                                            <ArrowRight size={18} className="max-sm:w-4" />
-                                        </Label>
-                                    </Button>
-                                </Link>
-                            </CardFooter>
-                        </Card>
+                        {EventData.map((event) => (
+                            <>
+                                <EventCatd
+                                    title={event.title}
+                                    location={event.location}
+                                    date={event.date}
+                                    image={event.image}
+                                    isSignedInProp={isSignedIn}
+                                />
+                            </>
+                        ))}
                     </div>
                 </div>
             </div>

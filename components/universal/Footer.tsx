@@ -2,7 +2,7 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="border-t py-6">
+        <footer className="mt-4 border-t py-6">
             <div className="flex justify-between w-full max-w-[90%] mx-auto items-center text-black dark:text-white">
                 <p className="text-center">©{year} Apexia</p>
                 <div className="flex gap-4 justify-end">

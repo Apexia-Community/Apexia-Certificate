@@ -11,6 +11,16 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
     title: "Apexia Certificate",
     description: "Apexia Certificate",
+    openGraph: {
+        type: "website",
+        url: "https://certificate.apexia.tech/",
+        title: "Apexia Certificate",
+        description: "Apexia Certificate",
+        siteName: "Apexia Certificate",
+        images: [{
+            url: "https://certificate.apexia.tech/opengraph-image.png",
+        }],
+    },
 };
 
 export default function RootLayout({

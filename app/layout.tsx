@@ -21,7 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                <meta property="og:image" content="https://certificate.apexia.tech/opengraph-image.png" />
+                <meta property="og:image" content="https://certificate.apexia.tech/ogimage.png" />
             </head>
             <body style={{ fontFamily: "Borna" }}>
                 <ClerkProvider>

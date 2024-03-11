@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         default: "Apexia Certificate",
         template: "%s | Apexia Certificate"
     },
-    description: "Get your personalized certificate ",
+    description: "Get your personalized certificate !!",
 };
 
 export default function RootLayout({
@@ -24,7 +24,20 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
+                {/* <meta property="og:image" content="https://certificate.apexia.tech/ogimage.png" /> */}
+                <meta name="description" content="Get your personalized certificate!!" />
+                <meta property="og:url" content="https://certificate.apexia.tech/" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Apexia Certificate" />
+                <meta property="og:description" content="Get your personalized Certificate!!" />
                 <meta property="og:image" content="https://certificate.apexia.tech/ogimage.png" />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta property="twitter:domain" content="certificate.apexia.tech" />
+                <meta property="twitter:url" content="https://certificate.apexia.tech/" />
+                <meta name="twitter:title" content="Apexia" />
+                <meta name="twitter:description" content="Bits to brilliance, together!" />
+                <meta name="twitter:image" content="https://certificate.apexia.tech/ogimage.png" />
             </head>
             <body style={{ fontFamily: "Borna" }}>
                 <ClerkProvider>

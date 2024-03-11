@@ -14,7 +14,7 @@ import { MapPin, CalendarDays } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import generateSVGText from "@/utils/text_to_svgpath";
+import generateSVGText from "@/utils/text_to_svgpath_converge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AttendeeData {
@@ -33,7 +33,7 @@ export default function Certificate() {
 
     const fetchData = async (targetEmail: string): Promise<AttendeeData | null> => {
         try {
-            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_ID}/exec`);
+            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_CONVERGE_ID}/exec`);
             const filteredData: AttendeeData | undefined = response.data.data.find((entry: AttendeeData) => entry.Email_Address === targetEmail);
             return filteredData || null;
         } catch (error) {

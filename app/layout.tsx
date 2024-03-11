@@ -9,8 +9,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-    title: "Apexia Certificate",
-    description: "Apexia Certificate",
+    title: {
+        default: "Apexia Certificate",
+        template: "%s | Apexia Certificate"
+    },
+    description: "Get your personalized certificate ",
 };
 
 export default function RootLayout({

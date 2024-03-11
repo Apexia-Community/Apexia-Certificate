@@ -151,6 +151,7 @@ export default function Certificate() {
 
     return (
         <>
+            <title>Converge | Apexia Certificate</title>
             <div className="w-full max-w-[90%] mx-auto justify-center min-h-screen">
                 <div className="flex items-center">
                     <Link href="../" className="cursor-pointer">

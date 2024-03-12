@@ -11,7 +11,7 @@ export default async function generateSVGText(text) {
                 return;
             }
 
-            const svg = textToSVG.getD(text, { x: 337, y: 305, fontSize: 24 });
+            const svg = textToSVG.getD(text, { x: 24, y: 305, fontSize: 24 });
             resolve(svg);
         });
     });

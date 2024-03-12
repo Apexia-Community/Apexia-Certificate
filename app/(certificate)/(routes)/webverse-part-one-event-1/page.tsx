@@ -199,7 +199,7 @@ export default function Certificate() {
                                     <CardDescription>
                                         <Label className="flex items-center max-sm:text-sm text-lg gap-2">
                                             <CalendarDays size={18} className="max-sm:w-4" />
-                                            Tueesday, 12th March
+                                            Tuesday, 12th March
                                         </Label>
                                     </CardDescription>
                                 </div>

@@ -172,7 +172,7 @@ export default function Certificate() {
                 <div className="flex my-5 max-sm:justify-center">
                     <Card className="flex max-sm:flex-col w-full justify-between">
                         <CardHeader>
-                            <svg width="842" height="595" viewBox="0 0 842 595" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                            <svg width="842" height="595" id="certificate" viewBox="0 0 842 595" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                 <rect width="842" height="595" fill="url(#pattern0)" />
                                 <path d={`${attendeeNameSVG || noneAttendeeName}`} fill="#1A1A1A" />
                                 <defs>

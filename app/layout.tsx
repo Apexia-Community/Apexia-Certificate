@@ -7,6 +7,7 @@ import Footer from "@/components/universal/Footer";
 import Header from "@/components/universal/Header";
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from "@/components/theme-provider";
+import Script from "next/script";
 
 export const metadata: Metadata = {
     title: {
@@ -38,6 +39,18 @@ export default function RootLayout({
                 <meta name="twitter:title" content="Apexia" />
                 <meta name="twitter:description" content="Bits to brilliance, together!" />
                 <meta name="twitter:image" content="https://certificate.apexia.tech/ogimage.webp" />
+
+                {/* google Analytics */}
+                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-DZK7TGGK9L"></Script>
+                <Script id="google-analytics">
+                    {
+                     `  window.dataLayer = window.dataLayer || [];
+                     function gtag(){dataLayer.push(arguments);}
+                     gtag('js', new Date());
+
+                     gtag('config', 'G-DZK7TGGK9L');`
+                    }
+                </Script>
             </head>
             <body style={{ fontFamily: "Borna" }}>
                 <ClerkProvider>

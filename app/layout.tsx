@@ -39,16 +39,18 @@ export default function RootLayout({
                 <meta name="twitter:title" content="Apexia" />
                 <meta name="twitter:description" content="Bits to brilliance, together!" />
                 <meta name="twitter:image" content="https://certificate.apexia.tech/ogimage.webp" />
+                <meta name="google-site-verification" content="FISUPmmn-Mfa9MvlbzIsyEtfKJ8JYOsdkgiJNMEuNj0" />
 
                 {/* google Analytics */}
                 <Script async src="https://www.googletagmanager.com/gtag/js?id=G-DZK7TGGK9L"></Script>
                 <Script id="google-analytics">
                     {
-                     `  window.dataLayer = window.dataLayer || [];
-                     function gtag(){dataLayer.push(arguments);}
-                     gtag('js', new Date());
-
-                     gtag('config', 'G-DZK7TGGK9L');`
+                        `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', 'G-DZK7TGGK9L');
+                        `
                     }
                 </Script>
             </head>

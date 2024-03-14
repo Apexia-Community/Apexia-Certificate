@@ -6,6 +6,7 @@ import Link from "next/link";
 import { jsPDF } from 'jspdf';
 import { useRef } from "react";
 import { useUser } from "@clerk/nextjs";
+import slugify from 'typescript-slugify';
 import { useState, useEffect } from "react";
 import axios, { AxiosResponse } from 'axios';
 import { Label } from "@/components/ui/label";
@@ -14,7 +15,7 @@ import { MapPin, CalendarDays } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ChevronRight, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import generateSVGText from "@/utils/text_to_svgpath_webverse-part-one-event-1";
+import generateSVGText from "@/utils/text_to_svgpath";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AttendeeData {
@@ -91,30 +92,26 @@ export default function Certificate() {
             subject: 'Certificate',
             creator: 'Apexia',
         };
-        downloadSvgAsPdf('certificate', `${attendeeName}_webverse_part_one_event_1_certificate.pdf`, metadata);
+        downloadSvgAsPdf('certificate', `${slugify(attendeeName!)}_webverse_part_one_event_1_certificate.pdf`, metadata);
     };
 
-    generateSVGText(`Attendee Name`).then(svgResult => {
+    generateSVGText(`Attendee Name`, `/fonts/READYFORANYTHINGBB-BOLD.TTF`, 24, 305, 24, `black`, `black`).then(svgResult => {
         setNoneAttendeeName(svgResult);
     }).catch(error => {
         console.error(error);
     });
-
-    // const tempPath = generateSVGText(`Attendee Name`);
-    // console.log(tempPath);
 
     useEffect(() => {
         const getEmailData = async () => {
             const email = user?.primaryEmailAddress?.emailAddress!;
             const data = await fetchData(email);
             if (data && data.Checked_In !== "") {
-                // console.log("Data found:", data.Attendee_Name);
                 setAttendeeName(data.Attendee_Name);
                 toast({
                     title: "Data found",
                     description: `Data found for ${data.Attendee_Name}`,
                 });
-                generateSVGText(data.Attendee_Name).then(svgResult => {
+                generateSVGText(`${data.Attendee_Name}`, `/fonts/READYFORANYTHINGBB-BOLD.TTF`, 24, 305, 24, `black`, `black`).then(svgResult => {
                     setAttendeeNameSVG(svgResult);
                 }).catch(error => {
                     console.error(error);
@@ -154,8 +151,6 @@ export default function Certificate() {
         getEmailData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSignedIn, toast, user]);
-
-    // console.log(attendeeNameSVG);
 
     return (
         <>

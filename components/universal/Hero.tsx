@@ -17,7 +17,13 @@ const EventData = [
         title: "Webverse Part One Event 1",
         location: "IT Seminar Hall, SVIT",
         date: "Tuesday, 12th March",
-        image: "/WebversePartOne.webp",
+        image: "/WebversePartOneE1.webp",
+    },
+    {
+        title: "Webverse Part One Event 2",
+        location: "IT Seminar Hall, SVIT",
+        date: "Friday, 15th March",
+        image: "/WebversePartOneE2.webp",
     }
 ];
 

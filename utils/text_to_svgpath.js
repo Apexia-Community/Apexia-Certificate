@@ -1,8 +1,8 @@
 const TextToSVG = require('text-to-svg');
 const path = require('path');
 
-export default async function generateSVGText(text) {
-    const fontPath = path.resolve(__dirname, '/fonts/MARTIANMONO_SEMIEXPANDED-MEDIUM.otf');
+export default async function generateSVGText(text, fontPathLocation, x, y, fontSize, fill, stroke) {
+    const fontPath = path.resolve(__dirname, fontPathLocation);
 
     return new Promise((resolve, reject) => {
         TextToSVG.load(fontPath, function (err, textToSVG) {
@@ -11,7 +11,7 @@ export default async function generateSVGText(text) {
                 return;
             }
 
-            const svg = textToSVG.getD(text, { x: 40, y: 306, fontSize: 24, attributes: { fill: 'red', stroke: 'black' } });
+            const svg = textToSVG.getD(text, { x: x, y: y, fontSize: fontSize, attributes: { fill: fill, stroke: stroke } });
             resolve(svg);
         });
     });

@@ -1,34 +1,95 @@
 "use client";
 
+import _ from "lodash"
 import { useUser } from "@clerk/nextjs";
-import { ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import axios, { AxiosResponse } from 'axios';
 import { Label } from "@/components/ui/label";
+import { ChevronRight, Sheet } from "lucide-react";
+
 import { Separator } from "@/components/ui/separator";
 import EventCatd from "@/components/common/EventCard";
 
-const EventData = [
+interface AttendeeData {
+    Attendee_Name: string;
+    Email_Address: string;
+    Checked_In: string;
+    SheetName: string;
+}
+
+interface updatedEventData {
+    title: string;
+    location: string;
+    date: string;
+    image: string;
+    SheetName: string;
+    isRegisteredProp: boolean;
+}
+
+let EventData = [
     {
         title: "Converge",
         location: "Aeronautical Auditorium, SVIT",
         date: "Wednesday, 7th February",
         image: "/Coverpage.webp",
+        SheetName: "Converge_Certificate_Data",
+        isRegisteredProp: false
     },
     {
         title: "Webverse Part One Event 1",
         location: "IT Seminar Hall, SVIT",
         date: "Tuesday, 12th March",
         image: "/WebversePartOneE1.webp",
+        SheetName: "Webverse_Part_One_Event_One_Certificate_Data",
+        isRegisteredProp: false
     },
     {
         title: "Webverse Part One Event 2",
         location: "IT Seminar Hall, SVIT",
         date: "Friday, 15th March",
         image: "/WebversePartOneE2.webp",
+        SheetName: "Webverse_Part_One_Event_Two_Certificate_Data",
+        isRegisteredProp: false
     }
-];
+]
 
 export default function Hero() {
-    const { isSignedIn } = useUser();
+    const { user, isSignedIn } = useUser();
+    const [updatedEventData, setUpdatedEventData] = useState<updatedEventData[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const fetchData = async (targetEmail: string): Promise<AttendeeData[]> => {
+        try {
+            setLoading(true)
+            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_FOR_USER_REGISTERED_OR_NOT_FOR_SPECIFIC_EVENT}/exec`);
+            const filteredData: AttendeeData[] = response.data.data.filter((entry: AttendeeData) => entry.Email_Address === targetEmail);
+            return filteredData;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            return [];
+        }
+        finally {
+            setLoading(false)
+        }
+    };
+
+    useEffect(() => {
+        const getEmailData = async () => {
+            const email = user?.primaryEmailAddress?.emailAddress!;
+            const data = await fetchData(email);
+            const updated_EventData = _.forEach(EventData, (event: updatedEventData) => {
+                const index = _.findIndex(data, (record: any) => {
+
+                    return event.SheetName == record.SheetName && record.Checked_In && record.Checked_In != ''
+                })
+                console.log("event", event, index);
+                event.isRegisteredProp = index >= 0 ? true : false
+            })
+            setUpdatedEventData([...updated_EventData]);
+        };
+
+        getEmailData();
+    }, [user?.primaryEmailAddress?.emailAddress]);
 
     return (
         <>
@@ -52,7 +113,7 @@ export default function Hero() {
                         <ChevronRight size={18} className="max-sm:w-4 -mt-px" />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-                        {EventData.map((event) => (
+                        {updatedEventData.map((event) => (
                             <>
                                 <EventCatd
                                     title={event.title}
@@ -60,6 +121,7 @@ export default function Hero() {
                                     date={event.date}
                                     image={event.image}
                                     isSignedInProp={isSignedIn}
+                                    isRegisteredProp={event.isRegisteredProp}
                                 />
                             </>
                         ))}

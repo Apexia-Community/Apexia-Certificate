@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import slugify from "typescript-slugify";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"
 import { ArrowRight, MapPin, CalendarDays } from "lucide-react";
@@ -14,6 +15,7 @@ interface EventCardProps {
     date: string;
     image: string;
     isSignedInProp?: boolean;
+    isRegisteredProp?: boolean;
 }
 
 export default function EventCatd(
@@ -23,6 +25,7 @@ export default function EventCatd(
         date,
         image,
         isSignedInProp,
+        isRegisteredProp,
     }: EventCardProps
 ) {
     return (
@@ -60,25 +63,37 @@ export default function EventCatd(
                 <CardFooter>
                     {isSignedInProp ? (
                         <>
-                            <Link href={`/${slugify(title)}`} className="cursor-pointer">
-                                <Button className="flex items-center gap-2 cursor-pointer">
-                                    <Label className="text-lg max-sm:text-sm cursor-pointer">
-                                        Get Certificate
-                                    </Label>
-                                    <ArrowRight size={18} className="max-sm:w-4 cursor-pointer" />
-                                </Button>
-                            </Link>
+                            <div>
+                                {
+                                    isRegisteredProp ? (
+                                        <Badge variant="confirm" className="text-lg mb-4">Attended</Badge>
+                                    ) : (
+                                        <Badge variant="destructive" className="text-lg mb-4">Not Attended</Badge>
+                                    )
+                                }
+                                <Link href={`/${slugify(title)}`} className="cursor-pointer">
+                                    <Button className="flex items-center gap-2 cursor-pointer">
+                                        <Label className="text-lg max-sm:text-sm cursor-pointer">
+                                            Get Certificate
+                                        </Label>
+                                        <ArrowRight size={18} className="max-sm:w-4 cursor-pointer" />
+                                    </Button>
+                                </Link>
+                            </div>
                         </>
                     ) : (
                         <>
-                            <Link href="/sign-in" className="cursor-pointer">
-                                <Button className="flex items-center gap-2 cursor-pointer">
-                                    <Label className="text-lg max-sm:text-sm cursor-pointer">
-                                        Sign In to Get Certificate
-                                    </Label>
-                                    <ArrowRight size={18} className="max-sm:w-4 cursor-pointer" />
-                                </Button>
-                            </Link>
+                            <div>
+                                <Badge variant="outline" className="text-lg text-muted-foreground mb-4">Status</Badge>
+                                <Link href="/sign-in" className="cursor-pointer">
+                                    <Button className="flex items-center gap-2 cursor-pointer">
+                                        <Label className="text-lg max-sm:text-sm cursor-pointer">
+                                            Sign In to Get Certificate
+                                        </Label>
+                                        <ArrowRight size={18} className="max-sm:w-4 cursor-pointer" />
+                                    </Button>
+                                </Link>
+                            </div>
                         </>
                     )}
                 </CardFooter>

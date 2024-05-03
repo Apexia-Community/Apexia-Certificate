@@ -31,7 +31,7 @@ let EventData = [
         title: "Converge",
         location: "Aeronautical Auditorium, SVIT",
         date: "Wednesday, 7th February",
-        image: "/Coverpage.webp",
+        image: "/assets/Coverpage.webp",
         SheetName: "Converge_Certificate_Data",
         isRegisteredProp: false
     },
@@ -39,7 +39,7 @@ let EventData = [
         title: "Webverse Part One Event 1",
         location: "IT Seminar Hall, SVIT",
         date: "Tuesday, 12th March",
-        image: "/WebversePartOneE1.webp",
+        image: "/assets/WebversePartOneE1.webp",
         SheetName: "Webverse_Part_One_Event_One_Certificate_Data",
         isRegisteredProp: false
     },
@@ -47,7 +47,7 @@ let EventData = [
         title: "Webverse Part One Event 2",
         location: "IT Seminar Hall, SVIT",
         date: "Friday, 15th March",
-        image: "/WebversePartOneE2.webp",
+        image: "/assets/WebversePartOneE2.webp",
         SheetName: "Webverse_Part_One_Event_Two_Certificate_Data",
         isRegisteredProp: false
     },
@@ -55,7 +55,7 @@ let EventData = [
         title: "Projects to Products",
         location: "New Architecture Auditorium, SVIT",
         date: "Friday, 3rd May",
-        image: "/p2p.webp",
+        image: "/assets/p2p.webp",
         SheetName: "Projects_to_Products_Certificate_Data",
         isRegisteredProp: false
     }

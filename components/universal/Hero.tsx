@@ -50,6 +50,14 @@ let EventData = [
         image: "/WebversePartOneE2.webp",
         SheetName: "Webverse_Part_One_Event_Two_Certificate_Data",
         isRegisteredProp: false
+    },
+    {
+        title: "Projects to Products",
+        location: "New Architecture Auditorium, SVIT",
+        date: "Friday, 3rd May",
+        image: "/p2p.webp",
+        SheetName: "Projects_to_Products_Certificate_Data",
+        isRegisteredProp: false
     }
 ]
 

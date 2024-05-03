@@ -1,0 +1,33 @@
+{
+    "theme_color": "#020817",
+    "background_color": "#020817",
+    "display": "standalone",
+    "orientation": "portrait",
+    "start_url": "/",
+    "name": "Apexia Certificate",
+    "short_name": "Apexia Certificate",
+    "description": "Get your personalized Certificate!!",
+    "icons": [
+        {
+            "src": "/seo/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/seo/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/seo/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/seo/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

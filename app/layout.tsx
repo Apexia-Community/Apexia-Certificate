@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import NextTopLoader from 'nextjs-toploader';
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
@@ -14,7 +14,12 @@ export const metadata: Metadata = {
         default: "Apexia Certificate",
         template: "%s | Apexia Certificate"
     },
+    manifest: "/manifest.json",
     description: "Get your personalized certificate !!",
+};
+
+export const viewport: Viewport = {
+    themeColor: "#020817",
 };
 
 export default function RootLayout({

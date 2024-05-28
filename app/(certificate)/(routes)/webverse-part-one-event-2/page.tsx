@@ -1,6 +1,5 @@
 "use client";
 
-import 'svg2pdf.js';
 import React from "react";
 import Link from "next/link";
 import { jsPDF } from 'jspdf';
@@ -80,12 +79,8 @@ export default function Certificate() {
             });
             doc.setProperties(metadata);
             doc.addImage(dataUrl, 'JPEG', 0, 0, svgWidth, svgHeight, undefined, 'FAST');
-            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())) {
-                // @ts-ignore
-                window.open(doc.output('bloburl', { filename: fileName }))
-            } else {
-                doc.save(fileName)
-            }
+            // @ts-ignore
+            window.open(doc.output('bloburl', { filename: fileName }));
         };
         img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
     };

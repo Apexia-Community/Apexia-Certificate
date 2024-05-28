@@ -80,7 +80,12 @@ export default function Certificate() {
             });
             doc.setProperties(metadata);
             doc.addImage(dataUrl, 'JPEG', 0, 0, svgWidth, svgHeight, undefined, 'FAST');
-            doc.save(fileName);
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())) {
+                // @ts-ignore
+                window.open(doc.output('bloburl', { filename: fileName }))
+            } else {
+                doc.save(fileName)
+            }
         };
         img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
     };
@@ -154,7 +159,7 @@ export default function Certificate() {
 
     return (
         <>
-            <title>Webverse 2 | Apexia Certificate</title>
+            <title>Webverse P1 E2 | Apexia Certificate</title>
             <div className="w-full max-w-[90%] mx-auto justify-center min-h-screen">
                 <div className="flex items-center">
                     <Link href="../" className="cursor-pointer">

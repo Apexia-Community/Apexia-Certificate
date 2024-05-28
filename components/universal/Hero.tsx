@@ -90,7 +90,6 @@ export default function Hero() {
 
                     return event.SheetName == record.SheetName && record.Checked_In && record.Checked_In != ''
                 })
-                console.log("event", event, index);
                 event.isRegisteredProp = index >= 0 ? true : false
             })
             setUpdatedEventData([...updated_EventData]);

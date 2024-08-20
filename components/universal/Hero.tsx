@@ -28,15 +28,15 @@ interface updatedEventData {
 }
 
 let EventData = [
-    // {
-    //     title: "Desigनीति",
-    //     location: "New Architecture Auditorium, SVIT",
-    //     date: "Friday, 21st August",
-    //     image: "/assets/designiti.webp",
-    //     slug: "designiti",
-    //     SheetName: "Designiti_Certificate_Data",
-    //     isRegisteredProp: false
-    // },
+    {
+        title: "Desigनीति",
+        location: "New Architecture Auditorium, SVIT",
+        date: "Friday, 21st August",
+        image: "/assets/designiti.webp",
+        slug: "designiti",
+        SheetName: "Designiti_Certificate_Data",
+        isRegisteredProp: false
+    },
     {
         title: "Projects to Products",
         location: "New Architecture Auditorium, SVIT",

@@ -14,16 +14,18 @@ interface EventCardProps {
     location: string;
     date: string;
     image: string;
+    slug: string;
     isSignedInProp?: boolean;
     isRegisteredProp?: boolean;
 }
 
-export default function EventCatd(
+export default function EventCard(
     {
         title,
         location,
         date,
         image,
+        slug,
         isSignedInProp,
         isRegisteredProp,
     }: EventCardProps
@@ -71,7 +73,7 @@ export default function EventCatd(
                                         <Badge variant="destructive" className="text-lg mb-4">Not Attended</Badge>
                                     )
                                 }
-                                <Link href={`/${slugify(title)}`} className="cursor-pointer">
+                                <Link href={`/${slug}`} className="cursor-pointer">
                                     <Button className="flex items-center gap-2 cursor-pointer">
                                         <Label className="text-lg max-sm:text-sm cursor-pointer">
                                             Get Certificate

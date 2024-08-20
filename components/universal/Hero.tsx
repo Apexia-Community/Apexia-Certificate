@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { ChevronRight, Sheet } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
-import EventCatd from "@/components/common/EventCard";
+import EventCard from "@/components/common/EventCard";
 
 interface AttendeeData {
     Attendee_Name: string;
@@ -22,25 +22,28 @@ interface updatedEventData {
     location: string;
     date: string;
     image: string;
+    slug: string;
     SheetName: string;
     isRegisteredProp: boolean;
 }
 
 let EventData = [
+    // {
+    //     title: "Desigनीति",
+    //     location: "New Architecture Auditorium, SVIT",
+    //     date: "Friday, 21st August",
+    //     image: "/assets/designiti.webp",
+    //     slug: "designiti",
+    //     SheetName: "Designiti_Certificate_Data",
+    //     isRegisteredProp: false
+    // },
     {
-        title: "Converge",
-        location: "Aeronautical Auditorium, SVIT",
-        date: "Wednesday, 7th February",
-        image: "/assets/Coverpage.webp",
-        SheetName: "Converge_Certificate_Data",
-        isRegisteredProp: false
-    },
-    {
-        title: "Webverse Part One Event 1",
-        location: "IT Seminar Hall, SVIT",
-        date: "Tuesday, 12th March",
-        image: "/assets/WebversePartOneE1.webp",
-        SheetName: "Webverse_Part_One_Event_One_Certificate_Data",
+        title: "Projects to Products",
+        location: "New Architecture Auditorium, SVIT",
+        date: "Friday, 3rd May",
+        image: "/assets/p2p.webp",
+        slug: "p2p",
+        SheetName: "Projects_to_Products_Certificate_Data",
         isRegisteredProp: false
     },
     {
@@ -48,17 +51,28 @@ let EventData = [
         location: "IT Seminar Hall, SVIT",
         date: "Friday, 15th March",
         image: "/assets/WebversePartOneE2.webp",
+        slug: "webversep1e2",
         SheetName: "Webverse_Part_One_Event_Two_Certificate_Data",
         isRegisteredProp: false
     },
     {
-        title: "Projects to Products",
-        location: "New Architecture Auditorium, SVIT",
-        date: "Friday, 3rd May",
-        image: "/assets/p2p.webp",
-        SheetName: "Projects_to_Products_Certificate_Data",
+        title: "Webverse Part One Event 1",
+        location: "IT Seminar Hall, SVIT",
+        date: "Tuesday, 12th March",
+        image: "/assets/WebversePartOneE1.webp",
+        slug: "webversep1e1",
+        SheetName: "Webverse_Part_One_Event_One_Certificate_Data",
         isRegisteredProp: false
-    }
+    },
+    {
+        title: "Converge",
+        location: "Aeronautical Auditorium, SVIT",
+        date: "Wednesday, 7th February",
+        image: "/assets/Coverpage.webp",
+        slug: "converge",
+        SheetName: "Converge_Certificate_Data",
+        isRegisteredProp: false
+    },
 ]
 
 export default function Hero() {
@@ -122,11 +136,12 @@ export default function Hero() {
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
                         {updatedEventData.map((event) => (
                             <>
-                                <EventCatd
+                                <EventCard
                                     title={event.title}
                                     location={event.location}
                                     date={event.date}
                                     image={event.image}
+                                    slug={event.slug}
                                     isSignedInProp={isSignedIn}
                                     isRegisteredProp={event.isRegisteredProp}
                                 />

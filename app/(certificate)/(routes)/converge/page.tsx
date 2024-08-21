@@ -2,12 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { jsPDF } from 'jspdf';
+import { jsPDF } from "jspdf";
 import { useRef } from "react";
+import FileSaver from "file-saver";
 import { useUser } from "@clerk/nextjs";
-import slugify from 'typescript-slugify';
+import slugify from "typescript-slugify";
 import { useState, useEffect } from "react";
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { MapPin, CalendarDays } from "lucide-react";
@@ -38,7 +39,7 @@ export default function Certificate() {
             const filteredData: AttendeeData | undefined = response.data.data.find((entry: AttendeeData) => entry.Email_Address === targetEmail);
             return filteredData || null;
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
             setAppscriptFetchError(true);
             return null;
         }
@@ -48,51 +49,52 @@ export default function Certificate() {
         const element = document.getElementById(svgElementId);
 
         if (!element) {
-            console.error(`SVG element with id '${svgElementId}' not found.`);
+            console.error(`SVG element with id "${svgElementId}" not found.`);
             return;
         }
 
         const svgWidth = 1920;
         const svgHeight = 1337.7;
 
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         canvas.width = svgWidth * window.devicePixelRatio;
         canvas.height = svgHeight * window.devicePixelRatio;
         canvas.style.width = `${svgWidth}px`;
         canvas.style.height = `${svgHeight}px`;
 
-        const ctx = canvas.getContext('2d', { alpha: false });
+        const ctx = canvas.getContext("2d", { alpha: false });
 
         if (!ctx) {
-            console.error('Canvas context could not be created.');
+            console.error("Canvas context could not be created.");
             return;
         }
+
         const svgData = new XMLSerializer().serializeToString(element);
         const img = new Image();
         img.onload = function () {
             ctx.drawImage(img, 0, 0, svgWidth * window.devicePixelRatio, svgHeight * window.devicePixelRatio);
-            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const dataUrl = canvas.toDataURL("image/jpeg", quality);
             const doc = new jsPDF({
-                orientation: svgWidth > svgHeight ? 'landscape' : 'portrait',
-                unit: 'pt',
-                format: [svgWidth, svgHeight]
+                orientation: svgWidth > svgHeight ? "landscape" : "portrait",
+                unit: "pt",
+                format: [svgWidth, svgHeight],
             });
             doc.setProperties(metadata);
-            doc.addImage(dataUrl, 'JPEG', 0, 0, svgWidth, svgHeight, undefined, 'FAST');
-            // @ts-ignore
-            window.open(doc.output('bloburl', { filename: fileName }));
+            doc.addImage(dataUrl, "JPEG", 0, 0, svgWidth, svgHeight, undefined, "FAST");
+            const pdfBlob = doc.output("blob");
+            FileSaver.saveAs(pdfBlob, fileName);
         };
-        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
     };
 
     const handleSvgPdfDownload = () => {
         const metadata = {
             title: `${attendeeName} Converge Certificate`,
-            author: 'Apexia',
-            subject: 'Certificate',
-            creator: 'Apexia',
+            author: "Apexia",
+            subject: "Certificate",
+            creator: "Apexia",
         };
-        downloadSvgAsPdf('certificate', `${slugify(attendeeName!)}_converge_certificate.pdf`, metadata);
+        downloadSvgAsPdf("certificate", `${slugify(attendeeName!)}_converge_certificate.pdf`, metadata);
     };
 
     generateSVGText(`Attendee Name`, `/fonts/MARTIANMONO_SEMIEXPANDED-MEDIUM.otf`, 40, 306, 24, `red`, `black`).then(svgResult => {

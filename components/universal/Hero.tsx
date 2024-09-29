@@ -29,6 +29,15 @@ interface updatedEventData {
 
 let EventData = [
     {
+        title: "Converge 2.0",
+        location: "Aeronautical Auditorium, SVIT",
+        date: "Monday, 30th September",
+        image: "/assets/Coverpage2.webp",
+        slug: "converge2",
+        SheetName: "Converge2_Certificate_Data",
+        isRegisteredProp: false
+    },
+    {
         title: "Desigनीति",
         location: "New Architecture Auditorium, SVIT",
         date: "Friday, 21st August",

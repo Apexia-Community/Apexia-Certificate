@@ -5,7 +5,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/universal/Footer";
 import Header from "@/components/universal/Header";
-import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 
@@ -70,7 +69,6 @@ export default function RootLayout({
                         <NextTopLoader color="#FF4600" showSpinner={false} />
                         <Header />
                         {children}
-                        <Analytics />
                         <Footer />
                         <Toaster />
                     </ThemeProvider>

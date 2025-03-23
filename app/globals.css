@@ -37,6 +37,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'ANDVARI';
+    src: url('/fonts/ANDVARI.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;

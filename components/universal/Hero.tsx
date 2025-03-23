@@ -2,13 +2,15 @@
 
 import _ from "lodash"
 import { useUser } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import axios, { AxiosResponse } from 'axios';
 import { Label } from "@/components/ui/label";
-import { ChevronRight, Sheet } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import EventCard from "@/components/common/EventCard";
+import EventCardSkeleton from "@/components/common/EventCardSkeleton";
+import { useSuspenseQuery } from "@/hooks/useSuspenseQuery";
 
 interface AttendeeData {
     Attendee_Name: string;
@@ -17,24 +19,14 @@ interface AttendeeData {
     SheetName: string;
 }
 
-interface updatedEventData {
-    title: string;
-    location: string;
-    date: string;
-    image: string;
-    slug: string;
-    SheetName: string;
-    isRegisteredProp: boolean;
-}
-
-let EventData = [
+const defaultEventData = [
     {
-        title: "Converge 2.0",
-        location: "Aeronautical Auditorium, SVIT",
-        date: "Monday, 30th September",
-        image: "/assets/Coverpage2.webp",
-        slug: "converge2",
-        SheetName: "Converge2_Certificate_Data",
+        title: "Genesis",
+        location: "New Architecture Auditorium, SVIT",
+        date: "Monday, 24th March",
+        image: "/assets/genesis.webp",
+        slug: "genesis",
+        SheetName: "Genesis_Certificate_Data",
         isRegisteredProp: false
     },
     {
@@ -56,7 +48,7 @@ let EventData = [
         isRegisteredProp: false
     },
     {
-        title: "Webverse Part One Event 2",
+        title: "Webverse P1 E2",
         location: "IT Seminar Hall, SVIT",
         date: "Friday, 15th March",
         image: "/assets/WebversePartOneE2.webp",
@@ -65,7 +57,7 @@ let EventData = [
         isRegisteredProp: false
     },
     {
-        title: "Webverse Part One Event 1",
+        title: "Webverse P1 E1",
         location: "IT Seminar Hall, SVIT",
         date: "Tuesday, 12th March",
         image: "/assets/WebversePartOneE1.webp",
@@ -82,83 +74,109 @@ let EventData = [
         SheetName: "Converge_Certificate_Data",
         isRegisteredProp: false
     },
-]
+];
 
-export default function Hero() {
-    const { user, isSignedIn } = useUser();
-    const [updatedEventData, setUpdatedEventData] = useState<updatedEventData[]>([]);
-    const [loading, setLoading] = useState(false);
+const EventListSkeleton = () => {
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+            {Array(defaultEventData.length).fill(0).map((_, index) => (
+                <EventCardSkeleton key={`skeleton-${index}`} />
+            ))}
+        </div>
+    );
+};
 
-    const fetchData = async (targetEmail: string): Promise<AttendeeData[]> => {
+const EventListContent = ({ isSignedIn }: { isSignedIn: boolean | undefined }) => {
+    const { user } = useUser();
+    const email = user?.primaryEmailAddress?.emailAddress || '';
+
+    const fetchAttendanceData = async (): Promise<AttendeeData[]> => {
+        if (!isSignedIn || !email) return [];
+
         try {
-            setLoading(true)
-            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(`https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_FOR_USER_REGISTERED_OR_NOT_FOR_SPECIFIC_EVENT}/exec`);
-            const filteredData: AttendeeData[] = response.data.data.filter((entry: AttendeeData) => entry.Email_Address === targetEmail);
-            return filteredData;
+            const response: AxiosResponse<{ data: AttendeeData[] }> = await axios.get(
+                `https://script.google.com/macros/s/${process.env.NEXT_PUBLIC_SHEET_FOR_USER_REGISTERED_OR_NOT_FOR_SPECIFIC_EVENT}/exec`
+            );
+            return response.data.data.filter((entry: AttendeeData) => entry.Email_Address === email);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching attendance data:', error);
             return [];
-        }
-        finally {
-            setLoading(false)
         }
     };
 
-    useEffect(() => {
-        const getEmailData = async () => {
-            const email = user?.primaryEmailAddress?.emailAddress!;
-            const data = await fetchData(email);
-            const updated_EventData = _.forEach(EventData, (event: updatedEventData) => {
-                const index = _.findIndex(data, (record: any) => {
+    const { data: attendanceData, isLoading, error } = useSuspenseQuery<AttendeeData[]>(
+        fetchAttendanceData,
+        [email, isSignedIn]
+    );
 
-                    return event.SheetName == record.SheetName && record.Checked_In && record.Checked_In != ''
-                })
-                event.isRegisteredProp = index >= 0 ? true : false
-            })
-            setUpdatedEventData([...updated_EventData]);
-        };
+    const processedEventData = _.cloneDeep(defaultEventData).map(event => {
+        if (attendanceData && attendanceData.length > 0) {
+            const matchingRecord = attendanceData.find(
+                record => event.SheetName === record.SheetName && record.Checked_In && record.Checked_In !== ''
+            );
+            event.isRegisteredProp = !!matchingRecord;
+        }
+        return event;
+    });
 
-        getEmailData();
-    }, [user?.primaryEmailAddress?.emailAddress]);
+    if (error) {
+        return (
+            <div className="p-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-md">
+                There was an error loading the events. Please try again later.
+            </div>
+        );
+    }
+
+    if (isLoading) {
+        return <EventListSkeleton />;
+    }
 
     return (
-        <>
-            <div className="w-full max-w-[90%] mx-auto gap-5 min-h-screen flex flex-col">
-                <div className="max-sm:text-center flex flex-col gap-2">
-                    <div className="flex items-center max-sm:justify-center">
-                        <Label className="text-4xl font-bold max-sm:text-xl">
-                            Welcome to Apexia Certificate
-                        </Label>
-                    </div>
-                    <div className="flex items-center max-sm:justify-center">
-                        <Label className="text-lg max-sm:text-sm">
-                            Your one stop solution for all your certificate needs for all the event held by Apexia.
-                        </Label>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+            {processedEventData.map((event) => (
+                <EventCard
+                    key={event.slug}
+                    title={event.title}
+                    location={event.location}
+                    date={event.date}
+                    image={event.image}
+                    slug={event.slug}
+                    isSignedInProp={isSignedIn}
+                    isRegisteredProp={event.isRegisteredProp}
+                />
+            ))}
+        </div>
+    );
+};
+
+export default function Hero() {
+    const { isSignedIn } = useUser();
+
+    return (
+        <div className="w-full max-w-[90%] mx-auto gap-5 min-h-screen flex flex-col">
+            <div className="max-sm:text-center flex flex-col gap-2">
+                <div className="flex items-center max-sm:justify-center">
+                    <Label className="text-4xl font-bold max-sm:text-xl">
+                        Welcome to Apexia Certificate
+                    </Label>
                 </div>
-                <div className="flex flex-col gap-5">
-                    <Separator />
-                    <div className="flex gap-2 max-sm:gap-1 items-center">
-                        <h2 className="text-lg max-sm:text-sm">Find all the events</h2>
-                        <ChevronRight size={18} className="max-sm:w-4 -mt-px" />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-                        {updatedEventData.map((event) => (
-                            <>
-                                <EventCard
-                                    title={event.title}
-                                    location={event.location}
-                                    date={event.date}
-                                    image={event.image}
-                                    slug={event.slug}
-                                    isSignedInProp={isSignedIn}
-                                    isRegisteredProp={event.isRegisteredProp}
-                                />
-                            </>
-                        ))}
-                    </div>
+                <div className="flex items-center max-sm:justify-center">
+                    <Label className="text-lg max-sm:text-sm">
+                        Your one stop solution for all your certificate needs for all the event held by Apexia.
+                    </Label>
                 </div>
             </div>
-        </>
-    )
+            <div className="flex flex-col gap-5">
+                <Separator />
+                <div className="flex gap-2 max-sm:gap-1 items-center">
+                    <h2 className="text-lg max-sm:text-sm">Find all the events</h2>
+                    <ChevronRight size={18} className="max-sm:w-4 -mt-px" />
+                </div>
+
+                <Suspense fallback={<EventListSkeleton />}>
+                    <EventListContent isSignedIn={isSignedIn} />
+                </Suspense>
+            </div>
+        </div>
+    );
 }

@@ -1,9 +1,12 @@
 function doGet(req) {
   var doc = SpreadsheetApp.getActiveSpreadsheet();
-  var sheetNames = ["Converge_Certificate_Data",
+  var sheetNames = [
+    "Converge_Certificate_Data",
     "Webverse_Part_One_Event_One_Certificate_Data",
     "Webverse_Part_One_Event_Two_Certificate_Data",
-    "Projects_to_Products_Certificate_Data"
+    "Projects_to_Products_Certificate_Data",
+    "Designiti_Certificate_Data",
+    "Genesis_Certificate_Data"
   ]; // Add your sheet names here
   var output = [];
 
